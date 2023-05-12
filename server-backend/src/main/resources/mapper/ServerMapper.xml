@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin.zoowayss.top.mapper.ServerMapper">
+  <resultMap id="BaseResultMap" type="admin.zoowayss.top.entity.Server">
+    <!--@mbg.generated-->
+    <!--@Table t_server-->
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="ip4" jdbcType="VARCHAR" property="ip4" />
+    <result column="ip6" jdbcType="VARCHAR" property="ip6" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="frp_token" jdbcType="VARCHAR" property="frpToken" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `domain`, ip4, ip6, `password`, frp_token, expire_time, create_time, update_time
+  </sql>
+</mapper>
