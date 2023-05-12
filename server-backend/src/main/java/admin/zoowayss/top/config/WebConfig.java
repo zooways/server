@@ -60,7 +60,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean("adminTokenHandlerInterceptor")
     public TokenHandlerInterceptor adminTokenHandlerInterceptor(AdminUserService tokenVerifier) {
         TokenHandlerInterceptor interceptor = new TokenHandlerInterceptor(Arrays.asList(tokenVerifier));
-        interceptor.setTokenHeaderName(Constants.USER_TOKEN_HEADER);
+        interceptor.setTokenHeaderName(Constants.ADMIN_TOKEN_HEADER);
         interceptor.setInterceptByDefault(true);
         interceptor.setCheckRole(true);
         interceptor.setIncludePrefix("/admin");

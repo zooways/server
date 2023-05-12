@@ -6,6 +6,8 @@ import admin.zoowayss.top.mapper.AdminUserMapper;
 import admin.zoowayss.top.service.AdminUserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -34,7 +37,19 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
     private JWTVerifier verifier;
     @Override
     public String verifyAndGetUserId(String token) {
-        return "req";
+        try {
+            DecodedJWT decodedJWT = verifier.verify(token);
+            String userId = decodedJWT.getClaim("adminId").asString();
+            if (StringUtils.hasText(userId)) {
+                AdminUserEntity adminUserEntity = getById(userId);
+                if (adminUserEntity != null && adminUserEntity.getStatus() == AdminUserEntity.STATUS_NORMAL) {
+                    return userId;
+                }
+            }
+            return null;
+        } catch (JWTVerificationException e) {
+            return null;
+        }
     }
 
     @Override
